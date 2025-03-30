@@ -24,7 +24,7 @@ const Newsletter = () => {
   React.useEffect(() => {
     const fetchNewsletters = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/newsletter/newsletter');
+        const response = await fetch('https://backend-umbracare.onrender.com/api/newsletter/newsletter');
         if (!response.ok) {
           throw new Error('Failed to fetch newsletters');
         }
@@ -118,7 +118,7 @@ const Newsletter = () => {
         return;
       }
 
-      await axios.post('http://localhost:5000/api/newsletter/subscribe', {}, {
+      await axios.post('https://backend-umbracare.onrender.com/api/newsletter/subscribe', {}, {
         headers: { 'x-auth-token': token }
       });
 
@@ -138,7 +138,7 @@ const Newsletter = () => {
     e.preventDefault();
     if (email && email.includes("@")) {
       try {
-        const response = await fetch('http://localhost:5000/api/newsData/subscribe', {
+        const response = await fetch('https://backend-umbracare.onrender.com/api/newsData/subscribe', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -179,7 +179,7 @@ const Newsletter = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/newsletter/addnewsletter', {
+      const response = await fetch('https://backend-umbracare.onrender.com/api/newsletter/addnewsletter', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -223,7 +223,7 @@ const Newsletter = () => {
         return;
       }
 
-      await axios.delete(`http://localhost:5000/api/newsletter/newsletter/${id}`, {
+      await axios.delete(`https://backend-umbracare.onrender.com/api/newsletter/newsletter/${id}`, {
         headers: { 'x-auth-token': token }
       });
 

@@ -21,7 +21,7 @@ const Profile = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('No token found. Please log in again.');
 
-        const response = await axios.get('http://localhost:5000/api/users/me', {
+        const response = await axios.get('https://backend-umbracare.onrender.com/api/users/me', {
           headers: { 'x-auth-token': token },
         });
         setUser(response.data);
@@ -57,7 +57,7 @@ const Profile = () => {
         throw new Error('No token found. Please log in again.');
       }
       const response = await axios.put(
-        'http://localhost:5000/api/users/me',
+        'https://backend-umbracare.onrender.com/api/users/me',
         formData,
         {
           headers: {
