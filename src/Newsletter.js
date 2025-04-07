@@ -342,7 +342,7 @@ React.useEffect(() => {
           <p>You'll receive our next newsletter soon.</p>
         </div>
       ) : (
-        <form onSubmit={handleSubscribe} style={styles.subscriptionForm}>
+        <form onSubmit={handelsubscribe} style={styles.subscriptionForm}>
           <button type="submit" style={styles.subscribeButton}>
             Subscribe <FaPaperPlane style={styles.buttonIcon} />
           </button>
