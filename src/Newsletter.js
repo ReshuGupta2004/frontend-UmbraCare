@@ -118,7 +118,7 @@ const Newsletter = () => {
         return;
       }
 
-      await axios.post('https://backend-umbracare.onrender.com/api/newsletter/subscribe', {}, {
+      await axios.post('https://backend-umbracare.onrender.com/api/newsData/subscribe', {}, {
         headers: { 'x-auth-token': token }
       });
 
@@ -229,6 +229,7 @@ const Newsletter = () => {
 
       setArticles(articles.filter(article => article._id !== id));
       toast.success('Newsletter deleted successfully');
+      fetchNewsletters();
     } catch (err) {
       console.error('Error deleting newsletter:', err);
       toast.error(err.response?.data?.msg || 'Error deleting newsletter');
