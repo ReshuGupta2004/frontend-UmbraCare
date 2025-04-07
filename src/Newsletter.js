@@ -21,6 +21,7 @@ const Newsletter = () => {
   const [newNewsletter, setNewNewsletter] = useState({ title: "", description: "" });
 
   
+  
  const fetchNewsletters = async () => {
   try {
     const response = await fetch('https://backend-umbracare.onrender.com/api/newsletter/newsletter');
