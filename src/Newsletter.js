@@ -144,7 +144,7 @@ React.useEffect(() => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ 
-            email, 
+            email: localStorage.getItem('userEmail'), 
             name: localStorage.getItem('name') || 'Subscriber' 
           }),
         });
