@@ -109,26 +109,26 @@ React.useEffect(() => {
     }
   };
 
-  const handleSubscribe = async (e) => {
-    e.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        toast.error('Please log in to subscribe');
-        return;
-      }
+  // const handleSubscribe = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     if (!token) {
+  //       toast.error('Please log in to subscribe');
+  //       return;
+  //     }
 
-      await axios.post('https://backend-umbracare.onrender.com/api/newsData/subscribe', {}, {
-        headers: { 'x-auth-token': token }
-      });
+  //     await axios.post('https://backend-umbracare.onrender.com/api/newsData/subscribe', {}, {
+  //       headers: { 'x-auth-token': token }
+  //     });
 
-      localStorage.setItem('isSubscribed', 'true');
-      toast.success('Successfully subscribed to newsletter!');
-    } catch (err) {
-      console.error('Error subscribing to newsletter:', err);
-      toast.error(err.response?.data?.msg || 'Error subscribing to newsletter');
-    }
-  };
+  //     localStorage.setItem('isSubscribed', 'true');
+  //     toast.success('Successfully subscribed to newsletter!');
+  //   } catch (err) {
+  //     console.error('Error subscribing to newsletter:', err);
+  //     toast.error(err.response?.data?.msg || 'Error subscribing to newsletter');
+  //   }
+  // };
 
   const closeModal = () => {
     setShowModal(false);
@@ -138,10 +138,11 @@ React.useEffect(() => {
     e.preventDefault();
     if (email && email.includes("@")) {
       try {
+        const token = localStorage.getItem('token');
         const response = await fetch('https://backend-umbracare.onrender.com/api/newsData/subscribe', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+             'x-auth-token': token,
           },
           body: JSON.stringify({ 
             email: localStorage.getItem('userEmail'), 
