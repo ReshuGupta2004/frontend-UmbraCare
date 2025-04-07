@@ -134,27 +134,30 @@ React.useEffect(() => {
     setShowModal(false);
   };
 
-  const handelsubscribe = async (e) => {
+   const handleSubscribe = async (e) => {
     e.preventDefault();
+
+    const email = localStorage.getItem("userEmail");
+    const name = localStorage.getItem("name") || "Subscriber";
+
     if (email && email.includes("@")) {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://backend-umbracare.onrender.com/api/newsData/subscribe', {
-          method: 'POST',
+        const token = localStorage.getItem("token");
+
+        const response = await fetch("https://backend-umbracare.onrender.com/api/newsData/subscribe", {
+          method: "POST",
           headers: {
-             'x-auth-token': token,
+            "Content-Type": "application/json",
+            "x-auth-token": token,
           },
-          body: JSON.stringify({ 
-            email: localStorage.getItem('userEmail'), 
-            name: localStorage.getItem('name') || 'Subscriber' 
-          }),
+          body: JSON.stringify({ email, name }),
         });
-        
+
         const data = await response.json();
-        
+
         if (response.ok) {
           setIsSubscribed(true);
-          setEmail("");
+          localStorage.setItem("isSubscribed", "true");
           console.log("Successfully subscribed:", data.message);
         } else {
           alert(data.message || "Failed to subscribe. Please try again.");
@@ -164,7 +167,7 @@ React.useEffect(() => {
         alert("An error occurred. Please try again later.");
       }
     } else {
-      alert("Please enter a valid email address");
+      alert("User email not found or invalid. Please make sure you're logged in.");
     }
   };
   
@@ -325,24 +328,23 @@ React.useEffect(() => {
           ))}
         </div>
 
-        <div style={styles.subscriptionContainer}>
-    <div style={styles.subscriptionBox}>
+       <div style={styles.subscriptionContainer}>
+        <div style={styles.subscriptionBox}>
       <h2 style={styles.subscriptionHeading}>
         <FaEnvelope style={styles.subscriptionIcon} />
         Subscribe to Our Newsletter
       </h2>
       <p style={styles.subscriptionText}>
-        Get the latest fertility health news, tips, and research delivered
-        directly to your inbox.
+        Get the latest fertility health news, tips, and research delivered directly to your inbox.
       </p>
-      
-      {localStorage.getItem('isSubscribed') === 'true' ? (
+
+      {isSubscribed ? (
         <div style={styles.thankYouMessage}>
           <p>Thank you for subscribing!</p>
           <p>You'll receive our next newsletter soon.</p>
         </div>
       ) : (
-        <form onSubmit={handelsubscribe} style={styles.subscriptionForm}>
+        <form onSubmit={handleSubscribe} style={styles.subscriptionForm}>
           <button type="submit" style={styles.subscribeButton}>
             Subscribe <FaPaperPlane style={styles.buttonIcon} />
           </button>
