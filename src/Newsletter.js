@@ -21,37 +21,37 @@ const Newsletter = () => {
   const [newNewsletter, setNewNewsletter] = useState({ title: "", description: "" });
 
   
-  React.useEffect(() => {
-    const fetchNewsletters = async () => {
-      try {
-        const response = await fetch('https://backend-umbracare.onrender.com/api/newsletter/newsletter');
-        if (!response.ok) {
-          throw new Error('Failed to fetch newsletters');
-        }
-        
-        const data = await response.json();
-        
-        // Transform the data to match our component's format
-        const formattedArticles = data.map(newsletter => ({
-          _id: newsletter._id, // Ensure we capture the ID for deletion
-          title: newsletter.title,
-          date: `Published: ${new Date(newsletter.publishedAt).toLocaleDateString()}`,
-          summary: newsletter.description,
-          fullContent: "",
-          loading: false,
-        }));
-        
-        setArticles(formattedArticles);
-        setLoading(false);
-      } catch (err) {
-        console.error('Error fetching newsletters:', err);
-        setError('Failed to load newsletters. Please try again later.');
-        setLoading(false);
-      }
-    };
+ const fetchNewsletters = async () => {
+  try {
+    const response = await fetch('https://backend-umbracare.onrender.com/api/newsletter/newsletter');
+    if (!response.ok) {
+      throw new Error('Failed to fetch newsletters');
+    }
+    
+    const data = await response.json();
+    
+    const formattedArticles = data.map(newsletter => ({
+      _id: newsletter._id,
+      title: newsletter.title,
+      date: `Published: ${new Date(newsletter.publishedAt).toLocaleDateString()}`,
+      summary: newsletter.description,
+      fullContent: "",
+      loading: false,
+    }));
+    
+    setArticles(formattedArticles);
+    setLoading(false);
+  } catch (err) {
+    console.error('Error fetching newsletters:', err);
+    setError('Failed to load newsletters. Please try again later.');
+    setLoading(false);
+  }
+};
 
-    fetchNewsletters();
-  }, []);
+React.useEffect(() => {
+  fetchNewsletters();
+}, []);
+
   const navigate = useNavigate();
 
   const fetchFertilityNews = async (index) => {
